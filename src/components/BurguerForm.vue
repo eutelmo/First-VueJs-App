@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>component Message</p>
+    <Message :msg="msg" v-show="msg"/>
     <div>
       <form id="burger-form" @submit="createBurger">
         <div id="input-container">
@@ -62,6 +62,9 @@
 </template>
 
 <script>
+import Message from "./Message"
+
+
 export default {
   name: "BurguerForm",
   data() {
@@ -111,7 +114,7 @@ export default {
 
       const res = await req.json()
       console.log(res)
-      this.msg = "Sucess!!"
+      this.msg = `Order nº ${res.id} confirmed!`
 
       // clear message
       setTimeout(() => this.msg = "", 3000)
@@ -127,6 +130,9 @@ export default {
   mounted() {
     this.getIngredientes();
   },
+  components: {
+    Message,
+  }
 };
 </script>
 
