@@ -1,12 +1,18 @@
 <template>
   <div class="Pedidos">
-    <h1>Pedidos</h1>
+    <h1>Orders:</h1>
+    <Dashboard />
   </div>
 </template>
 
 <script>
+import Dashboard from '@/components/Dashboard.vue';
+
 export default {
   name: "Pedidos",
-  components: {},
+  components: {
+    Dashboard
+  },
 };
 </script>
+
