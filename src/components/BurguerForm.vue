@@ -15,31 +15,41 @@
         </div>
 
         <div id="input-container">
-          <label for="bread">Pick your bread:</label>
-          <select name="bread" id="bread" v-model="bread">
-            <option value="">Pick your bread</option>
-            <option value="bread">Bread1</option>
+          <label for="pao">Pick your bread:</label>
+          <select name="pao" id="pao" v-model="pao">
+            <option value="">Selecione o seu pão</option>
+            <option v-for="pao in paes" :key="pao.id" :value="pao.tipo">
+              {{ pao.tipo }}
+            </option>
           </select>
         </div>
 
         <div id="input-container">
-          <label for="meat">Pick your meat:</label>
-          <select name="meat" id="meat" v-model="meat">
-            <option value="">Pick your meat</option>
-            <option value="meat">meat1</option>
+          <label for="carne">Pick your meat:</label>
+          <select name="carne" id="carne" v-model="carne">
+            <option value="">Selecione o tipo de carne</option>
+            <option v-for="carne in carnes" :key="carne.id" :value="carne.tipo">
+              {{ carne.tipo }}
+            </option>
           </select>
         </div>
 
-        <div id="input-container">
-          <label for="optional">Pick your optionals:</label>
-          <div id="checkbox-container">
+        <div id="opcionais-container" class="input-container">
+          <label id="opcionais-title" for="opcionais"
+            >Pick your optionals:</label
+          >
+          <div
+            class="checkbox-container"
+            v-for="opcional in opcionaisdata"
+            :key="opcional.id"
+          >
             <input
               type="checkbox"
-              name="optional"
-              v-model="optional"
-              value="onion"
+              name="opcionais"
+              v-model="opcionais"
+              :value="opcional.tipo"
             />
-            <span>Onion</span>
+            <span>{{ opcional.tipo }}</span>
           </div>
         </div>
 
@@ -52,8 +62,40 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "BurguerForm",
+  data() {
+    return {
+      //come to backend
+      paes: null,
+      carnes: null,
+      opcionaisdata: null,
+
+      //Send to backend
+      nome: null,
+      pao: null,
+      carne: null,
+      opcionais: [],
+
+      //
+      status: "requested",
+      msg: null,
+    };
+  },
+  methods: {
+    async getIngredientes() {
+      const req = await fetch("http://localhost:3000/ingredientes");
+      const data = await req.json();
+      this.paes = data.paes;
+      this.carnes = data.carnes;
+      this.opcionaisdata = data.opcionais;
+    },
+  },
+  mounted() {
+    this.getIngredientes();
+  },
 };
 </script>
 
@@ -66,7 +108,6 @@ export default {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-  background: red;
 }
 label {
   font-weight: bold;
@@ -78,29 +119,35 @@ label {
 input,
 select {
   padding: 5px 10px;
-  width: 300px;
-}
-#opcionais-container {
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-#opcionais-title {
   width: 100%;
 }
-#checkbox-container {
-  display: flex;
-  align-items: flex-start;
-  width: 50%;
-  margin-bottom: 20px;
-}
-#checkbox-container span,
-.checkbox-container input {
-  width: auto;
-}
-#checkbox-container span {
-  margin-left: 6px;
-  font-weight: bold;
-}
+
+/* CSS for Opctions */
+#opcionais-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  #opcionais-title {
+    width: 100%;
+  }
+  .checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 2rem;
+    width: 50%;
+    margin-bottom: 20px;
+  }
+  .checkbox-container span,
+  .checkbox-container input {
+    width: auto;
+  }
+  .checkbox-container span {
+    margin-left: 6px;
+    font-weight: bold;
+  }
+
+
+/* CSS For Submit */
 .submit-btn {
   background-color: #222;
   color: #fcba03;
