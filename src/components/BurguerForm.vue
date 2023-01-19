@@ -2,14 +2,14 @@
   <div>
     <p>component Message</p>
     <div>
-      <form id="burger-form">
+      <form id="burger-form" @submit="createBurger">
         <div id="input-container">
-          <label for="name">Name:</label>
+          <label for="nome">Name:</label>
           <input
             type="text"
-            id="name"
-            name="name"
-            v-model="name"
+            id="nome"
+            name="nome"
+            v-model="nome"
             placeholder="Your Name"
           />
         </div>
@@ -62,8 +62,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "BurguerForm",
   data() {
@@ -80,7 +78,6 @@ export default {
       opcionais: [],
 
       //
-      status: "requested",
       msg: null,
     };
   },
@@ -91,6 +88,40 @@ export default {
       this.paes = data.paes;
       this.carnes = data.carnes;
       this.opcionaisdata = data.opcionais;
+    },
+
+    async createBurger(e) {
+      e.preventDefault();
+
+      const data = {
+        nome: this.nome,
+        carne: this.carne,
+        pao: this.pao,
+        opcionais: Array.from(this.opcionais),
+        status: "Solicitado",
+      };
+
+      const dataJson = JSON.stringify(data);
+
+      const req = await fetch("http://localhost:3000/burgers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: dataJson,
+      });
+
+      const res = await req.json()
+      console.log(res)
+      this.msg = "Sucess!!"
+
+      // clear message
+      setTimeout(() => this.msg = "", 3000)
+
+      // clean Inputs
+      this.nome = ""
+      this.carne = ""
+      this.pao = ""
+      this.opcionais = []
+
     },
   },
   mounted() {
@@ -124,28 +155,27 @@ select {
 
 /* CSS for Opctions */
 #opcionais-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  #opcionais-title {
-    width: 100%;
-  }
-  .checkbox-container {
-    display: flex;
-    align-items: flex-start;
-    margin-top: 2rem;
-    width: 50%;
-    margin-bottom: 20px;
-  }
-  .checkbox-container span,
-  .checkbox-container input {
-    width: auto;
-  }
-  .checkbox-container span {
-    margin-left: 6px;
-    font-weight: bold;
-  }
-
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#opcionais-title {
+  width: 100%;
+}
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 2rem;
+  width: 50%;
+  margin-bottom: 20px;
+}
+.checkbox-container span,
+.checkbox-container input {
+  width: auto;
+}
+.checkbox-container span {
+  margin-left: 6px;
+  font-weight: bold;
+}
 
 /* CSS For Submit */
 .submit-btn {
