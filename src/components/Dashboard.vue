@@ -1,5 +1,6 @@
 <template>
-  <div id="burger-table">
+  <div id="burger-table" v-if="burgers">
+    <Message :msg="msg" v-show="msg" />
     <div>
       <div id="burger-table-heading">
         <div class="order-id">#:</div>
@@ -24,7 +25,11 @@
         </div>
 
         <div>
-          <select name="status" class="status" @change="updateBurger($event, burger.id)">
+          <select
+            name="status"
+            class="status"
+            @change="updateBurger($event, burger.id)"
+          >
             <option value="">Select Status</option>
             <option
               :value="s.tipo"
@@ -42,9 +47,14 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <h2>Não há pedidos no momento!</h2>
+  </div>
 </template>
 
 <script>
+import Message from "./Message.vue";
+
 export default {
   name: "Dashboard",
   data() {
@@ -52,7 +62,11 @@ export default {
       burgers: null,
       burger_id: null,
       status: [],
+      msg: null,
     };
+  },
+  components: {
+    Message,
   },
   methods: {
     async getOrders() {
@@ -74,6 +88,13 @@ export default {
         method: "DELETE",
       });
       const res = await req.json();
+
+      //message
+      this.msg = `Order has Cancel!`;
+
+      // clear message
+      setTimeout(() => (this.msg = ""), 3000);
+
       this.getOrders();
     },
     async updateBurger(event, id) {
@@ -86,6 +107,12 @@ export default {
       });
       const res = await req.json();
       console.log(res);
+
+      //message
+      this.msg = `Order Nº ${res.id} ${res.status}!`;
+
+      // clear message
+      setTimeout(() => (this.msg = ""), 3000);
     },
   },
   mounted() {

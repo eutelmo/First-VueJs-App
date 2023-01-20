@@ -79,35 +79,14 @@
   ],
   "burgers": [
     {
-      "nome": "telmo",
-      "carne": "Veggie burger",
-      "pao": "Parmesão e Orégano",
+      "nome": "hyyyy",
+      "carne": "Alcatra",
+      "pao": "3 Queijos",
       "opcionais": [
         "Bacon"
       ],
       "status": "Em produção",
-      "id": 1
-    },
-    {
-      "nome": "ddddd",
-      "carne": "Veggie burger",
-      "pao": "Parmesão e Orégano",
-      "opcionais": [
-        "Bacon"
-      ],
-      "status": "Solicitado",
       "id": 2
-    },
-    {
-      "nome": "empresa",
-      "carne": "Alcatra",
-      "pao": "Parmesão e Orégano",
-      "opcionais": [
-        "Cheddar",
-        "Cebola roxa"
-      ],
-      "status": "Solicitado",
-      "id": 5
     }
   ]
 }
