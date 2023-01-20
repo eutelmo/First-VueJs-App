@@ -99,32 +99,6 @@
       "id": 2
     },
     {
-      "nome": "telmo",
-      "carne": "Veggie burger",
-      "pao": "Parmesão e Orégano",
-      "opcionais": [
-        "Bacon",
-        "Cebola roxa"
-      ],
-      "status": "Solicitado",
-      "id": 3
-    },
-    {
-      "nome": "Paulo",
-      "carne": "Veggie burger",
-      "pao": "Italiano Branco",
-      "opcionais": [
-        "Salame",
-        "Tomate",
-        "Cebola roxa",
-        "Pepino",
-        "Bacon",
-        "Cheddar"
-      ],
-      "status": "Solicitado",
-      "id": 4
-    },
-    {
       "nome": "empresa",
       "carne": "Alcatra",
       "pao": "Parmesão e Orégano",
