@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Message :msg="msg" v-show="msg"/>
+    <Message :msg="msg" v-show="msg" />
     <div>
       <form id="burger-form" @submit="createBurger">
         <div id="input-container">
@@ -62,8 +62,7 @@
 </template>
 
 <script>
-import Message from "./Message"
-
+import Message from "./Message";
 
 export default {
   name: "BurguerForm",
@@ -112,19 +111,18 @@ export default {
         body: dataJson,
       });
 
-      const res = await req.json()
-      console.log(res)
-      this.msg = `Order nº ${res.id} confirmed!`
+      const res = await req.json();
+      console.log(res);
+      this.msg = `Order nº ${res.id} confirmed!`;
 
       // clear message
-      setTimeout(() => this.msg = "", 3000)
+      setTimeout(() => (this.msg = ""), 3000);
 
       // clean Inputs
-      this.nome = ""
-      this.carne = ""
-      this.pao = ""
-      this.opcionais = []
-
+      this.nome = "";
+      this.carne = "";
+      this.pao = "";
+      this.opcionais = [];
     },
   },
   mounted() {
@@ -132,7 +130,7 @@ export default {
   },
   components: {
     Message,
-  }
+  },
 };
 </script>
 
