@@ -1,5 +1,5 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
-  publicPath: "https://eutelmo.github.io/First-VueJs-App",
+  publicPath: "/First-VueJs-App",
   transpileDependencies: true,
 });
